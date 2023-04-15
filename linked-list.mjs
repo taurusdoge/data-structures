@@ -118,25 +118,3 @@ export class LinkedList {
     return elements;
   }
 }
-
-const linkedList1 = new LinkedList();
-linkedList1.append(1);
-linkedList1.append("hello there");
-linkedList1.append(true);
-linkedList1.append(true);
-linkedList1.append(131.23);
-linkedList1.prepend("first!!!");
-linkedList1.prepend("first!!!");
-
-console.log(linkedList1.toArray());
-
-linkedList1.delete(true);
-linkedList1.delete("first!!!");
-linkedList1.delete(131.23);
-
-console.log(linkedList1.toArray());
-console.log(linkedList1.find(1));
-console.log(linkedList1.find("hello there"));
-
-linkedList1.insertAfter("new value", 1);
-console.log(linkedList1.toArray());
