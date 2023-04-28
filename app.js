@@ -219,10 +219,54 @@ class AVLTree extends Tree {
     leftNode.right = node;
     leftNode.right.parent = leftNode;
   }
+
+  rotateLeftRight(node) {
+    const leftNode = node.left;
+    node.left = null;
+
+    const leftRightNode = leftNode.right;
+    leftNode.right = null;
+
+    if (leftRightNode.left) {
+      leftNode.right = leftRightNode.left;
+      leftNode.right.parent = leftNode;
+      leftRightNode.left = null;
+    }
+
+    node.left = leftRightNode;
+    node.left.parent = node;
+
+    leftRightNode.left = leftNode;
+    leftRightNode.left.parent = leftRightNode;
+
+    this.rotateRight(node);
+  }
+
+  rotateRightLeft(node) {
+    const rightNode = node.right;
+    node.right = null;
+
+    const rightLeftNode = rightNode.left;
+    rightNode.left = null;
+
+    if (rightLeftNode.right) {
+      rightNode.left = rightLeftNode.right;
+      rightNode.left.parent = rightNode;
+      rightLeftNode.right = null;
+    }
+
+    node.right = rightLeftNode;
+    node.right.parent = node;
+
+    rightLeftNode.right = rightNode;
+    rightLeftNode.right.parent = rightLeftNode;
+
+    this.rotateLeft(node);
+  }
 }
 
 const tree = new AVLTree();
+tree.add(1);
 tree.add(3);
 tree.add(2);
-tree.add(1);
 console.dir(tree);
