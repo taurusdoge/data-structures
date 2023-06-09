@@ -1,5 +1,5 @@
 class Node {
-  constructor(value) {
+  constructor(value, priority) {
     this.value = value;
     this.next = null;
     this.priority = priority;
@@ -11,24 +11,36 @@ class PriorityQueue {
     this.first = null;
   }
 
-  insert(value) {
-    const newNode = new Node(value);
-    if (!this.first) {
+  insert(value, priority) {
+    const newNode = new Node(value, priority);
+    if (!this.first || priority > this.first.priority) {
+      newNode.next = this.first;
       this.first = newNode;
     } else {
       let currentNode = this.first;
 
-      while (currentNode.next) {
+      while (currentNode.next && priority < currentNode.next.priority) {
         currentNode = currentNode.next;
       }
 
+      newNode.next = currentNode.next;
       currentNode.next = newNode;
     }
+  }
+
+  process() {
+    const first = this.first;
+    this.first = this.first.next;
+    return first;
   }
 }
 
 const queue = new PriorityQueue();
-queue.insert(5);
-queue.insert(10);
-queue.insert(36);
+queue.insert("Clean the room", 1);
+queue.insert("Do taxes", 99);
+queue.insert("Learn to code", 105);
 console.dir(queue);
+
+console.dir(queue.process());
+console.dir(queue.process());
+console.dir(queue.process());
